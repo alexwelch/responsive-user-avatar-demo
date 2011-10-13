@@ -1,7 +1,6 @@
 <h2>Some users</h2>
-<% @users.each do |user| -%>
-  <div class="user">
-    <h5><%= user.name %></h5>
-    <div class="avatar"></div>
-  </div>
-<% end -%>
+<ul>
+  <% @users.each do |user| -%>
+    <li><%= link_to(user.name, user_path(user)) %></li>
+  <% end -%>
+</ul>

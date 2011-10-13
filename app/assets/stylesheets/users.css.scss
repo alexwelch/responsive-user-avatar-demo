@@ -1,7 +1,7 @@
-.user {
+a.back { 
+  display: block;
   clear: both;
 }
-
 /* Default - screens over 767px wide */
 #wrap {
   width: 747px;
@@ -14,6 +14,7 @@
   width: 220px;
   height: 220px;
   background: url('/assets/dfp/large.jpg');
+  border: #333 1px solid;
 }
 
 /* Mobile Landscape */
