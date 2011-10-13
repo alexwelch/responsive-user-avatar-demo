@@ -1,4 +1,7 @@
 <h2>Some users</h2>
 <% @users.each do |user| -%>
-  <h5><%= user.name %></h5>
+  <div class="user">
+    <h5><%= user.name %></h5>
+    <div class="avatar"></div>
+  </div>
 <% end -%>

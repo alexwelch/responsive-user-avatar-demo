@@ -1,3 +1,30 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.user {
+  clear: both;
+}
+
+/* Default - screens over 767px wide */
+.avatar {
+  float: left;
+  margin-bottom: 20px;
+  width: 220px;
+  height: 220px;
+  background: url('/assets/dfp/large.jpg');
+}
+
+/* Mobile Landscape */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .avatar {
+    width: 140px;
+    height: 197px;
+    background: url('/assets/dfp/medium.jpg');
+  }
+}
+
+/* Mobile portrait */
+@media only screen and (max-width: 479px) {
+  .avatar {
+    width: 60px;
+    height: 85px;
+    background: url('/assets/dfp/small.jpg');
+  }
+}
