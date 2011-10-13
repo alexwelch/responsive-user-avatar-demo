@@ -1,11 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+user1 = User.find_or_create_by_name("Billy B")
+user2 = User.find_or_create_by_name("Jenny J")
+user3 = User.find_or_create_by_name("Kara K")
 
-User.create(:name => "Billy B")
-User.create(:name => "Jenny J")
-User.create(:name => "Kara K")
+Avatar.create(:user => user1,
+              :small_url => "/assets/dfp/small.jpg",
+              :medium_url => "/assets/dfp/medium.jpg",
+              :large_url => "/assets/dfp/large.jpg")
+
+Avatar.create(:user => user2,
+              :small_url => "/assets/rails.png",
+              :medium_url => "/assets/rails.png",
+              :large_url => "/assets/rails.png")
+
+Avatar.create(:user => user3,
+              :small_url => "/assets/dfp/small.jpg",
+              :medium_url => "/assets/dfp/medium.jpg",
+              :large_url => "/assets/dfp/large.jpg")
