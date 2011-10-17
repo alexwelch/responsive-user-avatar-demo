@@ -125,3 +125,6 @@ Okay, maybe not, but to recap the main components are:
 1. Use CSS media queries to target different device resolutions.
 2. Reference the background-image proxy url in the stylesheet, which only loads the image size needed.
 3. Use a fake image proxy to get your dynamic image.
+
+[Demo app](http://responsive-user-avatar-demo.herokuapp.com/) and [demo app code](https://github.com/alexwelch/responsive-user-avatar-demo)
+
