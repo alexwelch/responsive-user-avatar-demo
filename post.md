@@ -49,6 +49,7 @@ Go ahead and load this page [insert link] on a web browser, open up the network 
 
 Okay, great, but, although it would be glorious, not everyone is going to have Dog Fanny Pack for their avatar. We need to call some ruby method on some ruby object to get the image (e.g. user.avatar.url).
 Not really something you can do from within the stylesheet. Alternatively you wouldn't want to move the background image reference to the view because then it get's loaded as soon as the page loads regardless of the screen resolution.
+
 We decided to create a little proxy. See below:
 
 #### Routes ####
@@ -72,7 +73,7 @@ We decided to create a little proxy. See below:
 
 
 We created an action, called avatar, on our users controller (you could do a seperate avatar controller too). The avatar action first looks up the user (You don't get to see how 'till later),
-then it grabs the size from the url and redirects to the users avatar for that size. All we have to do is reference our proxy image/action in the stylesheet, see below:
+then it grabs the size from the url and redirects to the user's avatar for that size. All we have to do is call our proxy image/action in the stylesheet, see below:
 
 #### users.css ####
 
@@ -122,5 +123,5 @@ While this isn't a silver bullet solution, it's a cool concept and can be applie
 Okay, maybe not, but to recap the main components are:
 
 1. Use CSS media queries to target different device resolutions.
-2. Reference the background-image url in the stylesheet, which only loads the image size needed.
+2. Reference the background-image proxy url in the stylesheet, which only loads the image size needed.
 3. Use a fake image proxy to get your dynamic image.
