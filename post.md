@@ -1,10 +1,10 @@
 ## Serving up different sized dynamic images based on device resolutions. ##
 
-[Jason](http://pivotallabs.com/users/jnoble/blog/) and I are working on an app where we needed to be able to render images of several different sizes for different mobile devices.
+[Jason Noble](http://pivotallabs.com/users/jnoble/blog/) and I are working on an app where we needed to be able to render images of several different sizes for different mobile devices.
 
 Our scenario was analagous to the following:
 
-Let's say you are an engineer for Twitter and you need to display a users avatar on their show page, but you need to serve a small, medium, or large image based on the resolution of the device accessing the page.
+Let's say you are an engineer for Twitter and you need to display a user's avatar on their show page, but you need to serve a small, medium, or large image based on the resolution of the device accessing the page.
 This was a good candidate for CSS media queries, except that the image url needed to be obtained from our User object. We decided to cross that bridge when we got there and spike on an initial proof-of-concept.
 
 #### users#show view ####
@@ -44,8 +44,9 @@ Pretty straightforward stuff, especially if you've followed the Responsive Web D
 The interesting thing to note here, is that when putting the background image in the stylesheet, the asset does not get requested until you resize your browser to the size that uses that image.
 Go ahead and load this page [insert link] on a web browser, open up the network panel, resize the display and watch the asset size change and different requests get fired off. That's exactly what we wanted!
 
-Okay, great, but, although it would be glorious, not everyone is going to have Dog Fanny Pack for their avatar. We need to call some ruby method on some ruby object to get the image (e.g. User#avatar.url).
-Not really something you can do from within the stylesheet. Alternatively you wouldn't want to move the background image reference to the view because then it get's loaded as soon as the page loads regardless of the screen resolution.
+Okay, great, but, although it would be glorious, not everyone is going to have Dog Fanny Pack for their avatar. We need to allow users to upload their own avatar using [Paperclip] or [Carrierwave] (e.g. User#avatar.url).
+Not really something you can do from within the stylesheet. Alternatively you wouldn't want to move the background image reference to the view because then each page load would download all three sizes regardless of the current screen resolution.
+
 We decided to create a little proxy. See below:
 
 #### Routes ####
@@ -69,7 +70,7 @@ We decided to create a little proxy. See below:
 
 
 We created an action, called avatar, on our users controller (you could do a seperate avatar controller too). The avatar action first looks up the user (You don't get to see how 'till later),
-then it grabs the size from the url and redirects to the users avatar for that size. All we have to do is call our proxy image/action in the stylesheet, see below:
+then it grabs the size from the url and redirects to the user's avatar for that size. All we have to do is call our proxy image/action in the stylesheet, see below:
 
 #### users.css ####
 
@@ -119,5 +120,5 @@ While this isn't a silver bullet solution, it's a cool concept and can be applie
 Okay, maybe not, but to recap the main components are:
 
 1. Use CSS media queries to target different device resolutions.
-2. Reference the background-image url in the stylesheet, which only loads the image size needed.
+2. Reference the background-image proxy url in the stylesheet, which only loads the image size needed.
 3. Use a fake image proxy to get your dynamic image.
