@@ -34,5 +34,16 @@ describe UsersController do
       get :avatar, :size => :large
       response.should redirect_to "/assets/dfp/large.jpg"
     end
+
+    it "renders a 404 when there is no referer" do
+      get :avatar, :size => :large
+      response.status.should == 404
+    end
+
+    it "renders a 404 when there is an invalid referer" do
+      request.stub(:env).and_return({"HTTP_REFERER" => "http://localhost:3000/public/user/9999999999999999"})
+      get :avatar, :size => :large
+      response.status.should == 404
+    end
   end
 end
