@@ -45,7 +45,7 @@ This was a good candidate for CSS media queries, except that the image url neede
 
 Pretty straightforward stuff, especially if you've followed the Responsive Web Design (CSS media queries) trend.
 The interesting thing to note here, is that when putting the background image in the stylesheet, the asset does not get requested until you resize your browser to the size that uses that image.
-Go ahead and load this page [insert link] on a web browser, open up the network panel, resize the display and watch the asset size change and different requests get fired off. That's exactly what we wanted!
+Go ahead and load [this page](http://responsive-static-avatar-demo.herokuapp.com/) in a web browser, open up the network panel, resize the display and watch the asset size change and different requests get fired off. That's exactly what we wanted!
 
 Okay, great, but, although it would be glorious, not everyone is going to have Dog Fanny Pack for their avatar. We need to call some ruby method on some ruby object to get the image (e.g. user.avatar.url).
 Not really something you can do from within the stylesheet. Alternatively you wouldn't want to move the background image reference to the view because then it get's loaded as soon as the page loads regardless of the screen resolution.
@@ -65,15 +65,18 @@ We decided to create a little proxy. See below:
       user = get_user
       size = params[:size]
       if user.present?
-        redirect_to user.avatar.url(size), :status => :found
+        send_file "#{Rails.root}/#{user.avatar.url(size)}"
       else
         render :status => :not_found, :text => "not found"
       end
     end
 
 
-We created an action, called avatar, on our users controller (you could do a seperate avatar controller too). The avatar action first looks up the user (You don't get to see how 'till later),
-then it grabs the size from the url and redirects to the user's avatar for that size. All we have to do is call our proxy image/action in the stylesheet, see below:
+We created an action, called avatar, on our users controller (you could do a seperate avatar controller too) that takes a size parameter. The avatar action first looks up the user (You don't get to see how 'till later),
+then it grabs the size from the url and renders the user's avatar for that size. You will notice this action isn't really on the member (i.e. no user id), even though it should be, we'll get to that in a second.
+You may also be thinking of alternatives to using send_file. We experimented with redirects, but ran into caching issues. I am open to suggestion on these topics, so feel free to post suggestions in the comments or [submit a pull request to the demo app](http://responsive-user-avatar-demo.herokuapp.com/).
+
+Now all we have to do is call our proxy image/action in the stylesheet, see below:
 
 #### users.css ####
 
@@ -127,4 +130,3 @@ Okay, maybe not, but to recap the main components are:
 3. Use a fake image proxy to get your dynamic image.
 
 [Demo app](http://responsive-user-avatar-demo.herokuapp.com/) and [demo app code](https://github.com/alexwelch/responsive-user-avatar-demo)
-
