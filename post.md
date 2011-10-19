@@ -5,7 +5,8 @@
 Our scenario was analagous to the following:
 
 Let's say you are an engineer for Twitter and you need to display a users avatar on their show page, but you need to serve a small, medium, or large image based on the resolution of the device accessing the page.
-This was a good candidate for CSS media queries, except that the image url needed to be obtained from our User object (in Ruby). We decided to cross that bridge when we got there and spike on an initial proof-of-concept.
+This is a potential candidate for CSS media queries, except that the image url needs to be obtained from our User object (in Ruby). 
+Let's cross that bridge when we get there and spike on an initial proof-of-concept.
 
 #### users#show view ####
 
@@ -45,12 +46,12 @@ This was a good candidate for CSS media queries, except that the image url neede
 
 Pretty straightforward stuff, especially if you've followed the Responsive Web Design (CSS media queries) trend.
 The interesting thing to note here, is that when putting the background image in the stylesheet, the asset does not get requested until you resize your browser to the size that uses that image.
-Go ahead and load [this page](http://responsive-static-avatar-demo.herokuapp.com/) in a web browser, open up the network panel, resize the display and watch the asset size change and different requests get fired off. That's exactly what we wanted!
+Go ahead and load [this page](http://responsive-static-avatar-demo.herokuapp.com/) in a web browser, open up the network panel, resize the display, and watch the asset size change and different requests get fired off. That's exactly what we want!
 
 Okay, great, but, although it would be glorious, not everyone is going to have Dog Fanny Pack for their avatar. We need to call some ruby method on some ruby object to get the image (e.g. user.avatar.url).
 Not really something you can do from within the stylesheet. Alternatively you wouldn't want to move the background image reference to the view because then it get's loaded as soon as the page loads regardless of the screen resolution.
 
-We decided to create a little proxy. See below:
+To make this puppy (pun inteneded) dynamic we create a little proxy. See below:
 
 #### Routes ####
 
@@ -72,10 +73,14 @@ We decided to create a little proxy. See below:
     end
 
 
-We created an action, called avatar, on our users controller (you could do a seperate avatar controller too) that takes a size parameter. The avatar action first looks up the user (You don't get to see how 'till later),
-then it grabs the size from the url and renders the user's avatar for that size. You will notice this action isn't really on the member (i.e. no user id), even though it should be, we'll get to that in a second.
-You may also be thinking of alternatives to using send_file. We experimented with redirects, but ran into caching issues. I am open to suggestion on these topics, so feel free to post suggestions in the comments or [submit a pull request to the demo app](http://responsive-user-avatar-demo.herokuapp.com/).
+We create an action, called avatar, on our users controller (you could do a seperate avatar controller too) that takes a size parameter. The avatar action first looks up the user (You don't get to see how 'till later),
+then it grabs the size from the url and renders the user's avatar for that size. 
 
+##### Quick aside #####
+You may notice this action isn't really on the member (i.e. no user id), even though it should be, we'll get to that in a second.
+You may also be thinking of alternatives to using send_file. Jason and I experimented with redirects, but ran into caching issues. I am open to suggestion on these topics, so feel free to post feedback in the comments or [submit a pull request to the demo app](http://responsive-user-avatar-demo.herokuapp.com/).
+
+##### Back to business #####
 Now all we have to do is call our proxy image/action in the stylesheet, see below:
 
 #### users.css ####
