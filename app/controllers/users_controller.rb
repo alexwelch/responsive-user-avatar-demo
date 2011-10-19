@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     user = get_user
     size = params[:size]
     if user.present?
-      send_data File.open("#{Rails.root}/#{user.avatar.url(size)}", "rb") { |f| f.read }
+      send_file "#{Rails.root}/#{user.avatar.url(size)}"
     else
       render :status => :not_found, :text => "not found"
     end
