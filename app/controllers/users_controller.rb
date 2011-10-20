@@ -8,10 +8,10 @@ class UsersController < ApplicationController
   end
 
   def avatar
-    user = get_user
+    @user = get_user
     size = params[:size]
-    if user.present?
-      send_file "#{Rails.root}/#{user.avatar.url(size)}"
+    if @user.present?
+      send_file "#{Rails.root}/#{@user.avatar.path(size)}"
     else
       render :status => :not_found, :text => "not found"
     end

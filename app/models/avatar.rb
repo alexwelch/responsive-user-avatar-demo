@@ -1,7 +1,7 @@
 class Avatar < ActiveRecord::Base
   belongs_to :user
 
-  def url(size)
-    self.send("#{size}_url")
+  def path(size)
+    self.send("#{size}_path")
   end
 end
