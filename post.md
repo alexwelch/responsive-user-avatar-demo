@@ -78,7 +78,7 @@ then it grabs the size from the url and renders the user's avatar for that size.
 
 ##### Quick aside #####
 You may notice this action isn't really on the member (i.e. no user id), even though it should be. We'll get to that in a second.
-You may also be thinking of alternatives to using send_file. Jason and I experimented with redirects, but ran into caching issues. I am open to suggestions on these topics, so feel free to post feedback in the comments or [submit a pull request to the demo app](http://responsive-user-avatar-demo.herokuapp.com/).
+You may also be thinking of alternatives to using send_file. Jason and I experimented with redirects, but ran into caching issues. I am open to suggestions on these topics, so feel free to post feedback in the comments or [submit a pull request to the demo app](https://github.com/alexwelch/responsive-user-avatar-demo).
 
 ##### Back to business #####
 Now all we have to do is call our proxy image/action in the stylesheet, see below:
