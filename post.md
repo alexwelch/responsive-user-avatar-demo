@@ -48,7 +48,7 @@ Pretty straightforward stuff, especially if you've followed the Responsive Web D
 The interesting thing to note here is that when putting the background image in the stylesheet, the asset does not get requested until you resize your browser to the size that uses that image.
 Go ahead and load [this page](http://responsive-static-avatar-demo.herokuapp.com/) in a web browser, open up the network panel, resize the display, and watch the asset size change and different requests getting fired off. That's exactly what we want!
 
-Okay, great. But, although it would be glorious, not everyone is going to have Dog Fanny Pack for their avatar. We need to call some ruby method on some ruby object to get the image (e.g. user.avatar.url).
+Okay, great. But, although it would be glorious, not everyone is going to have Dog Fanny Pack for their avatar. We need to call some ruby method on some ruby object to get the image (e.g. user.avatar.path).
 Not really something you can do from within the stylesheet. Alternatively, you wouldn't want to move the background image reference to the view because then it gets loaded as soon as the page loads, regardless of the screen resolution.
 
 To make this puppy (pun intended) dynamic, we create a little proxy. See below:
@@ -66,7 +66,7 @@ To make this puppy (pun intended) dynamic, we create a little proxy. See below:
       user = get_user
       size = params[:size]
       if user.present?
-        send_file "#{Rails.root}/#{user.avatar.url(size)}"
+        send_file "#{Rails.root}/#{user.avatar.path(size)}"
       else
         render :status => :not_found, :text => "not found"
       end
