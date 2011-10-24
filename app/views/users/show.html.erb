@@ -1,3 +1,31 @@
-<h2><%= @user.name %></h2>
-<div class="avatar"></div>
-<%= link_to("<< back", users_path, :class => "back") %>
+    <% content_for :head do -%>
+      <style type="text/css">
+
+        .avatar {
+          width: 220px;
+          height: 310px;
+          background: url("<%= image_path(@user.avatar.url('large')) %>");
+        }
+
+        /* Mobile Landscape */
+        @media only screen and (min-width: 480px) and (max-width: 767px) {
+          .avatar {
+            width: 140px;
+            height: 197px;
+            background: url("<%= image_path(@user.avatar.url('medium')) %>");
+          }
+        }
+
+        /* Mobile portrait */
+        @media only screen and (max-width: 479px) {
+          .avatar {
+            width: 60px;
+            height: 85px;
+            background: url("<%= image_path(@user.avatar.url('small')) %>");
+          }
+        }
+      </style>
+    <% end -%>
+    <h2><%= @user.name %></h2>
+    <div class="avatar"></div>
+    <%= link_to("<< back", users_path, :class => "back") %>
