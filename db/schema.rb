@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111019232455) do
+ActiveRecord::Schema.define(:version => 20111013130554) do
 
   create_table "avatars", :force => true do |t|
     t.integer  "user_id"
-    t.string   "small_path"
-    t.string   "medium_path"
-    t.string   "large_path"
+    t.string   "small_url"
+    t.string   "medium_url"
+    t.string   "large_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
